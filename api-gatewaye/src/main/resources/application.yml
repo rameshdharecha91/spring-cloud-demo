@@ -1,0 +1,25 @@
+server:
+  port: 9093
+spring:
+  application:
+    name: API-GETWAY
+  cloud:
+    gateway:
+      routes:
+        - id: DEPT-SERVICE
+          uri: lb://DEPT-SERVICE
+          predicates:
+            - Path=/dept/**
+
+        - id: EMP-SERVICE
+          uri: lb://EMP-SERVICE
+          predicates:
+            - Path=/emp/**
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    registry-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
